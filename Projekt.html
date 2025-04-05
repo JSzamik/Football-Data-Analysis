@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jakub Szamik">
+<meta name="dcterms.date" content="2025-01-01">
+
+<title>Analysis of Selected Player Statistics from the Top 5 European Football Leagues for the 2023/24 Season.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Projekt_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Projekt_files/libs/quarto-html/quarto.js"></script>
+<script src="Projekt_files/libs/quarto-html/popper.min.js"></script>
+<script src="Projekt_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Projekt_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Projekt_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Projekt_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Projekt_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Projekt_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Projekt_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="Projekt_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="Projekt_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="Projekt_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="Projekt_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+
+<script src="Projekt_files/libs/leaflet-1.3.1/leaflet.js"></script>
+
+<link href="Projekt_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+
+<script src="Projekt_files/libs/proj4-2.6.2/proj4.min.js"></script>
+
+<script src="Projekt_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+
+<link href="Projekt_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+
+<script src="Projekt_files/libs/leaflet-binding-2.2.2/leaflet.js"></script>
+
+<script src="Projekt_files/libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+
+<script src="Projekt_files/libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+
+<script src="Projekt_files/libs/d3-4.5.0/d3.min.js"></script>
+
+<script src="Projekt_files/libs/sankey-1/sankey.js"></script>
+
+<script src="Projekt_files/libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script>
+
+<script src="Projekt_files/libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="Projekt_files/libs/typedarray-0.1/typedarray.min.js"></script>
+
+<link href="Projekt_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="Projekt_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="Projekt_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="Projekt_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+<link href="Projekt_files/libs/circlepackeR-0.1/./style.css" rel="stylesheet">
+
+<script src="Projekt_files/libs/circlepackeR-binding-0.0.0.9000/circlepackeR.js"></script>
+
+<link href="Projekt_files/libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet">
+
+<script src="Projekt_files/libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+
+<script src="Projekt_files/libs/wordcloud2-0.0.1/hover.js"></script>
+
+<script src="Projekt_files/libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
+
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Spis treści</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-project-objectives." id="toc-introduction-to-the-project-objectives." class="nav-link active" data-scroll-target="#introduction-to-the-project-objectives.">1. Introduction to the Project Objectives.</a></li>
+  <li><a href="#goals-and-assists-comparison-between-leagues." id="toc-goals-and-assists-comparison-between-leagues." class="nav-link" data-scroll-target="#goals-and-assists-comparison-between-leagues.">2. Goals and Assists Comparison Between Leagues.</a>
+  <ul class="collapse">
+  <li><a href="#top-scorers-in-england-vs.-the-rest-of-europe" id="toc-top-scorers-in-england-vs.-the-rest-of-europe" class="nav-link" data-scroll-target="#top-scorers-in-england-vs.-the-rest-of-europe">2.1 Top Scorers in England vs.&nbsp;the Rest of Europe</a></li>
+  <li><a href="#direct-comparison-of-all-strikers-who-played-at-least-10-full-matches." id="toc-direct-comparison-of-all-strikers-who-played-at-least-10-full-matches." class="nav-link" data-scroll-target="#direct-comparison-of-all-strikers-who-played-at-least-10-full-matches.">2.2 Direct Comparison of All Strikers Who Played at Least 10 Full Matches.</a></li>
+  </ul></li>
+  <li><a href="#age-factor." id="toc-age-factor." class="nav-link" data-scroll-target="#age-factor.">3. Age Factor.</a></li>
+  <li><a href="#nationality-based-trends." id="toc-nationality-based-trends." class="nav-link" data-scroll-target="#nationality-based-trends.">4. Nationality-Based Trends.</a></li>
+  <li><a href="#match-endurance." id="toc-match-endurance." class="nav-link" data-scroll-target="#match-endurance.">5. Match Endurance.</a></li>
+  <li><a href="#most-penalized-players." id="toc-most-penalized-players." class="nav-link" data-scroll-target="#most-penalized-players.">6. Most Penalized Players.</a></li>
+  <li><a href="#best-xi-of-last-and-current-season-based-on-match-ratings." id="toc-best-xi-of-last-and-current-season-based-on-match-ratings." class="nav-link" data-scroll-target="#best-xi-of-last-and-current-season-based-on-match-ratings.">7. Best XI of Last and Current Season Based on Match Ratings.</a></li>
+  <li><a href="#expected-goals-xg." id="toc-expected-goals-xg." class="nav-link" data-scroll-target="#expected-goals-xg.">8. Expected Goals (xG).</a></li>
+  <li><a href="#best-assist-providers-in-europe." id="toc-best-assist-providers-in-europe." class="nav-link" data-scroll-target="#best-assist-providers-in-europe.">9. Best Assist Providers in Europe.</a></li>
+  <li><a href="#project-summary." id="toc-project-summary." class="nav-link" data-scroll-target="#project-summary.">10. Project Summary.</a></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources:</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Analysis of Selected Player Statistics from the Top 5 European Football Leagues for the 2023/24 Season.</h1>
+<p class="subtitle lead">Data acquisition and visualization project</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jakub Szamik </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 1, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="glowny.png" class="img-fluid"></p>
+<section id="introduction-to-the-project-objectives." class="level1">
+<h1>1. Introduction to the Project Objectives.</h1>
+<p>In modern football, increasing attention is given to minor statistics that do not necessarily reflect a player’s true abilities. A particularly interesting phenomenon is the overestimation of certain players based on their nationality or the league they play in. In the first part of this project, I will primarily compare the English Premier League, often considered the best in the world, with its main competitors from the European continent, as well as compare players of different nationalities. Starting with the most crucial aspects of football—goals and assists.</p>
+</section>
+<section id="goals-and-assists-comparison-between-leagues." class="level1">
+<h1>2. Goals and Assists Comparison Between Leagues.</h1>
+<section id="top-scorers-in-england-vs.-the-rest-of-europe" class="level2">
+<h2 class="anchored" data-anchor-id="top-scorers-in-england-vs.-the-rest-of-europe">2.1 Top Scorers in England vs.&nbsp;the Rest of Europe</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projekt_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projekt_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As seen in the charts, the English league performs relatively well in Europe, with three players ranking in the top 10 goal scorers. However, the highest-scoring players in England fell short of competing with the absolute best. This does not necessarily mean that other leagues are superior, as stronger leagues often host better defenders, which leads to fewer goals scored by offensive players. Notably, Harry Kane dominated the goal-scoring charts despite playing fewer matches.</p>
+</section>
+<section id="direct-comparison-of-all-strikers-who-played-at-least-10-full-matches." class="level2">
+<h2 class="anchored" data-anchor-id="direct-comparison-of-all-strikers-who-played-at-least-10-full-matches.">2.2 Direct Comparison of All Strikers Who Played at Least 10 Full Matches.</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projekt_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p><strong>Bundesliga and Serie A</strong>: Most diverse in terms of both average players and top scorers.</p></li>
+<li><p><strong>Premier League and La Liga</strong>: More consistent results with standout players (visible outliers).</p></li>
+<li><p><strong>Ligue 1</strong>: The most balanced league, with smaller differences between players and fewer dominant strikers.</p></li>
+</ul>
+</section>
+</section>
+<section id="age-factor." class="level1">
+<h1>3. Age Factor.</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projekt_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The chart above illustrates the age distribution of players in relation to their goal involvements. The most effective players are concentrated around 25 years old, with a declining trend on both sides (younger and older players). The red dashed line marks the average age in the top 5 leagues, which is precisely 25 years. This is no coincidence, as this age balances acquired experience with youthful energy.</p>
+</section>
+<section id="nationality-based-trends." class="level1">
+<h1>4. Nationality-Based Trends.</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-9e49ab024d5331b7c1f2" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9e49ab024d5331b7c1f2">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[51.51,38.91,48.86,34.02,5.6,-15.78,41.9,-34.6,6.82,9.06,48.21,40.18,52.52,46.95,40.42,9.93,43.85,36.75,6.5,59.91,52.37,-25.26,0.42,38.72,59.33,19.43,-34.9,14.69,8.98,55.68,55.95,44.82,17.98,10.48,31.77,64.14,35.68,41.33,6.14,35.69,45.81,-4.44,9.51,37.98,3.85,-15.39,12.64,12.06,50.08,49.61,14.93,51.48,5.87,-8.84,36.8,52.23,48.15,11.88,46.05,12.64,13.45,44.43,50.85,4.71,54.6,-33.45,45.42,-41.29,-0.18,39.93,53.35,-17.83,3.75,-11.7,14.62,42,50.45,18.59,30.04,18.49,-25.75,-35.28,54.69,55.76,42.7,47.5,37.57,14.6,60.17,46.05,35.19,41.3,4.39,42.44,41.72,-18.88,-25.97,-12.05,13.91,-4.26,42.67,-3.43,-1.29,33.51,4.92,31.96,35.9],[-0.13,-77.04000000000001,2.35,-6.84,-0.19,-47.93,12.5,-58.38,-5.28,7.5,16.37,44.5,13.4,7.45,-3.7,-84.09,18.36,3.06,2.63,10.75,4.9,-57.58,9.470000000000001,-9.140000000000001,18.07,-99.13,-56.16,-17.45,-79.52,12.57,-3.19,20.46,-76.79000000000001,-66.90000000000001,35.21,-21.9,139.65,19.82,1.21,51.39,15.98,15.27,-13.71,23.73,11.5,28.32,-1.5,-61.75,14.44,6.13,-23.51,-3.18,-55.17,13.29,10.18,21.01,17.11,-15.62,14.51,-8,-16.58,26.1,4.35,-74.06999999999999,-5.93,-70.67,-75.7,174.78,-78.47,32.86,-6.26,31.05,8.75,43.25,-61.08,21.43,30.5,-72.31,31.24,-69.93000000000001,18.42,149.13,25.28,37.62,23.32,19.04,126.98,120.98,24.94,14.51,33.38,69.23999999999999,18.56,19.26,44.83,47.51,32.59,-77.04000000000001,-85.95999999999999,15.24,21.23,29.93,36.82,36.28,-52.31,35.93,14.51],10,null,null,{"interactive":true,"className":"","stroke":false,"color":"white","weight":5,"opacity":0.5,"fill":true,"fillColor":["#B10026","#FEB24C","#B10026","#FEB24C","#FEB24C","#FC4E2A","#B10026","#FD8D3C","#FEB24C","#FEB24C","#FEB24C","#FFFFCC","#B10026","#FEB24C","#B10026","#FFFFCC","#FFEDA0","#FEB24C","#FFFFCC","#FEB24C","#FD8D3C","#FFEDA0","#FFEDA0","#FD8D3C","#FEB24C","#FFEDA0","#FEB24C","#FEB24C","#FFFFCC","#FEB24C","#FEB24C","#FEB24C","#FFEDA0","#FFFFCC","#FFEDA0","#FFFFCC","#FED976","#FED976","#FFEDA0","#FFFFCC","#FEB24C","#FFEDA0","#FED976","#FED976","#FEB24C","#FFFFCC","#FFEDA0","#FFFFCC","#FED976","#FFFFCC","#FFFFCC","#FED976","#FFFFCC","#FFEDA0","#FED976","#FEB24C","#FED976","#FFEDA0","#FFEDA0","#FEB24C","#FFFFCC","#FED976","#FD8D3C","#FEB24C","#FFFFCC","#FFEDA0","#FFEDA0","#FFFFCC","#FFEDA0","#FED976","#FED976","#FFEDA0","#FFEDA0","#FFFFCC","#FFFFCC","#FFFFCC","#FED976","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FED976","#FFEDA0","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFEDA0","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFEDA0","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC","#FFFFCC"],"fillOpacity":0.7},null,null,null,null,["Country: Anglia<br/>Number of Players: 217","Country: Stany Zjednoczone<br/>Number of Players: 27","Country: Francja<br/>Number of Players: 333","Country: Maroko<br/>Number of Players: 42","Country: Ghana<br/>Number of Players: 26","Country: Brazylia<br/>Number of Players: 101","Country: Włochy<br/>Number of Players: 243","Country: Argentyna<br/>Number of Players: 78","Country: Wybrzeże Kości Słoniowej<br/>Number of Players: 46","Country: Nigeria<br/>Number of Players: 27","Country: Austria<br/>Number of Players: 35","Country: Armenia<br/>Number of Players: 3","Country: Niemcy<br/>Number of Players: 263","Country: Szwajcaria<br/>Number of Players: 35","Country: Hiszpania<br/>Number of Players: 404","Country: Kostaryka<br/>Number of Players: 3","Country: Bośnia i Hercegowina<br/>Number of Players: 8","Country: Algieria<br/>Number of Players: 25","Country: Benin<br/>Number of Players: 2","Country: Norwegia<br/>Number of Players: 26","Country: Holandia<br/>Number of Players: 63","Country: Paragwaj<br/>Number of Players: 5","Country: Gabon<br/>Number of Players: 6","Country: Portugalia<br/>Number of Players: 64","Country: Szwecja<br/>Number of Players: 26","Country: Meksyk<br/>Number of Players: 8","Country: Urugwaj<br/>Number of Players: 28","Country: Senegal<br/>Number of Players: 42","Country: Panama<br/>Number of Players: 1","Country: Dania<br/>Number of Players: 41","Country: Szkocja<br/>Number of Players: 23","Country: Serbia<br/>Number of Players: 42","Country: Jamajka<br/>Number of Players: 7","Country: Wenezuela<br/>Number of Players: 4","Country: Izrael<br/>Number of Players: 5","Country: Islandia<br/>Number of Players: 3","Country: Japonia<br/>Number of Players: 17","Country: Albania<br/>Number of Players: 17","Country: Togo<br/>Number of Players: 5","Country: Iran<br/>Number of Players: 2","Country: Chorwacja<br/>Number of Players: 34","Country: Demokratyczna Republika Konga<br/>Number of Players: 9","Country: Gwinea<br/>Number of Players: 13","Country: Grecja<br/>Number of Players: 14","Country: Kamerun<br/>Number of Players: 26","Country: Zambia<br/>Number of Players: 2","Country: Burkina Faso<br/>Number of Players: 6","Country: Grenada<br/>Number of Players: 1","Country: Czechy<br/>Number of Players: 15","Country: Luksemburg<br/>Number of Players: 3","Country: Republika Zielonego Przylądka<br/>Number of Players: 3","Country: Walia<br/>Number of Players: 14","Country: Surinam<br/>Number of Players: 3","Country: Angola<br/>Number of Players: 6","Country: Tunezja<br/>Number of Players: 10","Country: Polska<br/>Number of Players: 31","Country: Słowacja<br/>Number of Players: 10","Country: Gwinea Bissau<br/>Number of Players: 6","Country: Słowenia<br/>Number of Players: 5","Country: Mali<br/>Number of Players: 28","Country: Gambia<br/>Number of Players: 3","Country: Rumunia<br/>Number of Players: 10","Country: Belgia<br/>Number of Players: 57","Country: Kolumbia<br/>Number of Players: 25","Country: Irlandia Północna<br/>Number of Players: 3","Country: Chile<br/>Number of Players: 7","Country: Kanada<br/>Number of Players: 5","Country: Nowa Zelandia<br/>Number of Players: 2","Country: Ekwador<br/>Number of Players: 5","Country: Turcja<br/>Number of Players: 13","Country: Irlandia<br/>Number of Players: 19","Country: Zimbabwe<br/>Number of Players: 6","Country: Gwinea Równikowa<br/>Number of Players: 5","Country: Komory<br/>Number of Players: 2","Country: Martynika<br/>Number of Players: 3","Country: Macedonia Północna<br/>Number of Players: 3","Country: Ukraina<br/>Number of Players: 13","Country: Haiti<br/>Number of Players: 2","Country: Egipt<br/>Number of Players: 4","Country: Dominikana<br/>Number of Players: 2","Country: Republika Południowej Afryki<br/>Number of Players: 2","Country: Australia<br/>Number of Players: 1","Country: Litwa<br/>Number of Players: 1","Country: Rosja<br/>Number of Players: 4","Country: Bułgaria<br/>Number of Players: 1","Country: Węgry<br/>Number of Players: 10","Country: Korea Południowa<br/>Number of Players: 6","Country: Filipiny<br/>Number of Players: 1","Country: Finlandia<br/>Number of Players: 3","Country: Sierra Leone<br/>Number of Players: 1","Country: Cypr<br/>Number of Players: 2","Country: Uzbekistan<br/>Number of Players: 2","Country: Republika Środkowoafrykańska<br/>Number of Players: 1","Country: Czarnogóra<br/>Number of Players: 4","Country: Gruzja<br/>Number of Players: 5","Country: Madagaskar<br/>Number of Players: 1","Country: Mozambik<br/>Number of Players: 2","Country: Peru<br/>Number of Players: 2","Country: Honduras<br/>Number of Players: 2","Country: Kongo<br/>Number of Players: 3","Country: Kosowo<br/>Number of Players: 8","Country: Burundi<br/>Number of Players: 1","Country: Kenia<br/>Number of Players: 1","Country: Syria<br/>Number of Players: 1","Country: Gujana Francuska<br/>Number of Players: 1","Country: Jordania<br/>Number of Players: 1","Country: Malta<br/>Number of Players: 1"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"13px","textOnly":false,"style":{"font-weight":"normal","padding":"3px 8px"},"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#FFFFCC","#FFEDA0","#FED976","#FEB24C","#FD8D3C","#FC4E2A","#E31A1C","#B10026"],"labels":["0 &ndash; 5","5 &ndash; 10","10 &ndash; 20","20 &ndash; 50","50 &ndash; 100","100 &ndash; 150","150 &ndash; 200","200 &ndash; Inf"],"na_color":null,"na_label":"NA","opacity":0.7,"position":"bottomright","type":"bin","title":"Number of Players","extra":null,"layerId":null,"className":"info legend","group":null}]}],"fitBounds":[-41.29,-99.13,64.14,174.78,[]],"limits":{"lat":[-41.29,64.14],"lng":[-99.13,174.78]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>The map highlights the number of representatives from each country playing in the top 5 leagues. Most players come from Europe, with the top three being Spain, France, and Germany. South American countries such as Brazil and Argentina also have strong representation. Africa shows a decent player density, though not in absolute numbers. Asia has the weakest representation relative to its population size.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="sankeyNetwork html-widget html-fill-item" id="htmlwidget-10e3c7ffe82975e2babe" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-10e3c7ffe82975e2babe">{"x":{"links":{"source":[0,0,0,0,0,1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4,5,5,5,5,5,6,6,6,6,6,7,7,7,7,7,8,8,8,8,8,9,9,9,9,9],"target":[10,11,12,13,14,10,11,12,13,14,10,11,12,13,14,10,11,12,13,14,10,11,12,13,14,10,11,12,13,14,10,11,12,13,14,10,11,12,13,14,10,11,12,13,14,10,11,12,13,14],"value":[2.564102564102564,17.94871794871795,37.17948717948718,6.41025641025641,35.8974358974359,21.05263157894737,28.07017543859649,14.03508771929824,21.05263157894737,15.78947368421053,5.940594059405941,32.67326732673268,20.79207920792079,18.81188118811881,21.78217821782178,90.49429657794677,4.182509505703422,1.520912547528517,1.140684410646388,2.661596958174905,1.84331797235023,91.70506912442397,0.9216589861751152,2.304147465437788,3.225806451612903,1.732673267326733,4.95049504950495,86.88118811881188,2.227722772277227,4.207920792079208,9.90990990990991,8.408408408408409,5.705705705705705,65.76576576576578,10.21021021021021,1.646090534979424,3.703703703703703,0.823045267489712,1.646090534979424,92.18106995884774,19.04761904761905,30.15873015873016,6.349206349206349,15.87301587301587,28.57142857142857,9.375,29.6875,21.875,18.75,20.3125]},"nodes":{"name":["ar ARG","be BEL","br BRA","de GER","eng ENG","es ESP","fr FRA","it ITA","nl NED","pt POR","de Bundesliga","eng Premier League","es La Liga","fr Ligue 1","it Serie A"],"group":["ar ARG","be BEL","br BRA","de GER","eng ENG","es ESP","fr FRA","it ITA","nl NED","pt POR","de Bundesliga","eng Premier League","es La Liga","fr Ligue 1","it Serie A"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal().range([\"#66c2a5\", \"#fc8d62\", \"#8da0cb\", \"#e78ac3\", \"#a6d854\"])","fontSize":12,"fontFamily":null,"nodeWidth":30,"nodePadding":15,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>A subsequent chart illustrates the percentage of players from each country in Europe’s top leagues. Unsurprisingly, about 90% of players compete in their domestic leagues. For those who cannot, language often determines their destination—for example, many Argentinians play in Spain.</p>
+</section>
+<section id="match-endurance." class="level1">
+<h1>5. Match Endurance.</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-ef8676a3299e91eafb14" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-ef8676a3299e91eafb14">{"x":{"visdat":{"2b2014346803":["function () ","plotlyVisDat"]},"cur_data":"2b2014346803","attrs":{"2b2014346803":{"x":{},"y":{},"z":{},"text":{},"hoverinfo":"text","mode":"markers","marker":{"size":5,"color":{},"colorscale":"Viridis","showscale":true,"colorbar":{"title":"Minutes"}},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"League"},"yaxis":{"title":"Position"},"zaxis":{"title":"Minutes"}},"xaxis":{"type":"category","categoryorder":"array","categoryarray":["de Bundesliga","eng Premier League","es La Liga","it Serie A"]},"yaxis":{"type":"category","categoryorder":"array","categoryarray":["DF","DF,MF","FW","FW,MF","MF","MF,DF","MF,FW"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["eng Premier League","eng Premier League","eng Premier League","eng Premier League","it Serie A","eng Premier League","es La Liga","eng Premier League","es La Liga","it Serie A","it Serie A","it Serie A","es La Liga","eng Premier League","eng Premier League","it Serie A","it Serie A","it Serie A","it Serie A","eng Premier League","it Serie A","it Serie A","eng Premier League","es La Liga","eng Premier League","es La Liga","es La Liga","eng Premier League","eng Premier League","eng Premier League","es La Liga","it Serie A","eng Premier League","es La Liga","eng Premier League","eng Premier League","it Serie A","eng Premier League","eng Premier League","eng Premier League","it Serie A","eng Premier League","eng Premier League","eng Premier League","it Serie A","es La Liga","eng Premier League","de Bundesliga","eng Premier League","eng Premier League"],"y":["DF","DF","DF","DF","DF","DF","DF","FW","MF","DF","MF,DF","MF","MF","DF","MF","DF","MF","DF","DF","MF","MF","DF","FW","MF","DF,MF","MF","DF","DF","DF","MF,FW","DF","MF","DF","MF","DF","MF","FW,MF","MF,FW","DF","MF,DF","DF","MF","DF","DF,MF","FW","DF","DF","DF","MF,DF","DF"],"z":[3420,3420,3419,3415,3406,3330,3327,3325,3302,3294,3289,3282,3265,3265,3263,3238,3238,3234,3233,3225,3222,3219,3217,3211,3204,3199,3178,3177,3174,3156,3146,3145,3137,3134,3132,3128,3121,3118,3116,3114,3100,3091,3089,3084,3076,3075,3069,3060,3054,3054],"text":["Name: Max Kilman <br>Position: DF <br>League: eng Premier League <br>Minutes: 3420 Team: Wolves","Name: William Saliba <br>Position: DF <br>League: eng Premier League <br>Minutes: 3420 Team: Arsenal","Name: James Tarkowski <br>Position: DF <br>League: eng Premier League <br>Minutes: 3419 Team: Everton","Name: Joachim Andersen <br>Position: DF <br>League: eng Premier League <br>Minutes: 3415 Team: Crystal Palace","Name: Sebastiano Luperto <br>Position: DF <br>League: it Serie A <br>Minutes: 3406 Team: Empoli","Name: Illia Zabarnyi <br>Position: DF <br>League: eng Premier League <br>Minutes: 3330 Team: Bournemouth","Name: Florian Lejeune <br>Position: DF <br>League: es La Liga <br>Minutes: 3327 Team: Rayo Vallecano","Name: Dominic Solanke <br>Position: FW <br>League: eng Premier League <br>Minutes: 3325 Team: Bournemouth","Name: José Luis García Vayá <br>Position: MF <br>League: es La Liga <br>Minutes: 3302 Team: Valencia","Name: Federico Baschirotto <br>Position: DF <br>League: it Serie A <br>Minutes: 3294 Team: Lecce","Name: Bryan Cristante <br>Position: MF,DF <br>League: it Serie A <br>Minutes: 3289 Team: Roma","Name: Stanislav Lobotka <br>Position: MF <br>League: it Serie A <br>Minutes: 3282 Team: Napoli","Name: Nemanja Maksimović <br>Position: MF <br>League: es La Liga <br>Minutes: 3265 Team: Getafe","Name: Antonee Robinson <br>Position: DF <br>League: eng Premier League <br>Minutes: 3265 Team: Fulham","Name: Bruno Guimarães <br>Position: MF <br>League: eng Premier League <br>Minutes: 3263 Team: Newcastle Utd","Name: Nehuén Pérez <br>Position: DF <br>League: it Serie A <br>Minutes: 3238 Team: Udinese","Name: Walace <br>Position: MF <br>League: it Serie A <br>Minutes: 3238 Team: Udinese","Name: Giovanni Di Lorenzo <br>Position: DF <br>League: it Serie A <br>Minutes: 3234 Team: Napoli","Name: Gleison Bremer <br>Position: DF <br>League: it Serie A <br>Minutes: 3233 Team: Juventus","Name: Declan Rice <br>Position: MF <br>League: eng Premier League <br>Minutes: 3225 Team: Arsenal","Name: Matteo Pessina <br>Position: MF <br>League: it Serie A <br>Minutes: 3222 Team: Monza","Name: Marin Pongračić <br>Position: DF <br>League: it Serie A <br>Minutes: 3219 Team: Lecce","Name: Ollie Watkins <br>Position: FW <br>League: eng Premier League <br>Minutes: 3217 Team: Aston Villa","Name: Kirian Rodríguez <br>Position: MF <br>League: es La Liga <br>Minutes: 3211 Team: Las Palmas","Name: Tyrick Mitchell <br>Position: DF,MF <br>League: eng Premier League <br>Minutes: 3204 Team: Crystal Palace","Name: Aleix García <br>Position: MF <br>League: es La Liga <br>Minutes: 3199 Team: Girona","Name: Mika Màrmol <br>Position: DF <br>League: es La Liga <br>Minutes: 3178 Team: Las Palmas","Name: Virgil van Dijk <br>Position: DF <br>League: eng Premier League <br>Minutes: 3177 Team: Liverpool","Name: Diogo Dalot <br>Position: DF <br>League: eng Premier League <br>Minutes: 3174 Team: Manchester Utd","Name: Morgan Gibbs-White <br>Position: MF,FW <br>League: eng Premier League <br>Minutes: 3156 Team: Nott'ham Forest","Name: Carlos Neva <br>Position: DF <br>League: es La Liga <br>Minutes: 3146 Team: Granada","Name: Morten Frendrup <br>Position: MF <br>League: it Serie A <br>Minutes: 3145 Team: Genoa","Name: Emerson Palmieri <br>Position: DF <br>League: eng Premier League <br>Minutes: 3137 Team: West Ham","Name: Rubén Alcaraz <br>Position: MF <br>League: es La Liga <br>Minutes: 3134 Team: Cádiz","Name: Vladimír Coufal <br>Position: DF <br>League: eng Premier League <br>Minutes: 3132 Team: West Ham","Name: Conor Gallagher <br>Position: MF <br>League: eng Premier League <br>Minutes: 3128 Team: Chelsea","Name: Matìas Soulé <br>Position: FW,MF <br>League: it Serie A <br>Minutes: 3121 Team: Frosinone","Name: Bruno Fernandes <br>Position: MF,FW <br>League: eng Premier League <br>Minutes: 3118 Team: Manchester Utd","Name: Jarrad Branthwaite <br>Position: DF <br>League: eng Premier League <br>Minutes: 3116 Team: Everton","Name: Pascal Groß <br>Position: MF,DF <br>League: eng Premier League <br>Minutes: 3114 Team: Brighton","Name: Adam Marušić <br>Position: DF <br>League: it Serie A <br>Minutes: 3100 Team: Lazio","Name: Martin Ødegaard <br>Position: MF <br>League: eng Premier League <br>Minutes: 3091 Team: Arsenal","Name: Pedro Porro <br>Position: DF <br>League: eng Premier League <br>Minutes: 3089 Team: Tottenham","Name: Nélson Semedo <br>Position: DF,MF <br>League: eng Premier League <br>Minutes: 3084 Team: Wolves","Name: Andrea Pinamonti <br>Position: FW <br>League: it Serie A <br>Minutes: 3076 Team: Sassuolo","Name: Cristhian Mosquera <br>Position: DF <br>League: es La Liga <br>Minutes: 3075 Team: Valencia","Name: Ezri Konsa <br>Position: DF <br>League: eng Premier League <br>Minutes: 3069 Team: Aston Villa","Name: Patrick Mainka <br>Position: DF <br>League: de Bundesliga <br>Minutes: 3060 Team: Heidenheim","Name: Vitaly Janelt <br>Position: MF,DF <br>League: eng Premier League <br>Minutes: 3054 Team: Brentford","Name: Fabian Schär <br>Position: DF <br>League: eng Premier League <br>Minutes: 3054 Team: Newcastle Utd"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"mode":"markers","marker":{"color":[3420,3420,3419,3415,3406,3330,3327,3325,3302,3294,3289,3282,3265,3265,3263,3238,3238,3234,3233,3225,3222,3219,3217,3211,3204,3199,3178,3177,3174,3156,3146,3145,3137,3134,3132,3128,3121,3118,3116,3114,3100,3091,3089,3084,3076,3075,3069,3060,3054,3054],"size":5,"colorscale":"Viridis","showscale":true,"colorbar":{"title":"Minutes"},"line":{"color":"rgba(31,119,180,1)"}},"type":"scatter3d","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>The chart displays the 15 outfield players with the most minutes played during the season. Notably, only three of the top five leagues are represented, as the German and French leagues have two fewer teams, reducing the maximum available minutes. Most of the featured players are defenders, as their stronger physique and lower injury risk allow them to play more matches.</p>
+</section>
+<section id="most-penalized-players." class="level1">
+<h1>6. Most Penalized Players.</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projekt_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The chart indicates significant disparities in yellow and red cards across leagues. La Liga records about 150% more yellow cards than France’s Ligue 1. Spain has the highest figures for both yellow and red cards, suggesting a more aggressive playing style.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Projekt_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="best-xi-of-last-and-current-season-based-on-match-ratings." class="level1">
+<h1>7. Best XI of Last and Current Season Based on Match Ratings.</h1>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><img src="2324.jpg" class="img-fluid" width="1100"></td>
+<td><img src="2425.png" class="img-fluid" width="1100"></td>
+</tr>
+</tbody>
+</table>
+<p>The image compares the best “eleven” players from last season (left) and the current season (right), according to WhoScored ratings. Player ratings are on a 10-point scale, with higher values indicating better performances over the season. A noticeable trend is the dominance of Bayern Munich and PSG players, which is unsurprising given their stronghold in their respective leagues.</p>
+</section>
+<section id="expected-goals-xg." class="level1">
+<h1>8. Expected Goals (xG).</h1>
+<div style="border: 1px solid #ccc; padding: 10px;">
+<iframe src="circle.html" width="100%" height="600px" frameborder="0">
+</iframe>
+</div>
+<p>The xG (Expected Goals) statistic calculates the probability of scoring from a given position based on factors like distance from goal. A value of 0.38 xG is considered a high chance. The chart above features the 50 players with the highest total xG from last season. Notably, Ligue 1 and Serie A have fewer top-performing players in this category.</p>
+</section>
+<section id="best-assist-providers-in-europe." class="level1">
+<h1>9. Best Assist Providers in Europe.</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div class="wordcloud2 html-widget html-fill-item" id="htmlwidget-61a8fbbad88f2d5ceda1" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-61a8fbbad88f2d5ceda1">{"x":{"word":["Alex Baena","Álex Grimaldo","Ollie Watkins","Jan-Niklas Beste","Julian Brandt","Cole Palmer","Leroy Sané","Xavi Simons","Nico Williams","Florian Wirtz","Iago Aspas","Kevin De Bruyne","Morgan Gibbs-White","Anthony Gordon","Pascal Groß","Son Heung-min","Brennan Johnson","Mohamed Salah","Sávio","Kevin Stöger","Kieran Trippier","Deniz Undav","Martin Ødegaard","Leon Bailey","Ermedin Demirović","Marvin Ducksch","Paulo Dybala","Anthony Elanga","İlkay Gündoğan","Franck Honorat","Rafael Leão","James Maddison","Thomas Müller","Pedro Neto","Raphinha","Rodri","Bukayo Saka","Bernardo Silva","Julián Álvarez","Pierre-Emerick Aubameyang","Victor Boniface","Yan Couto","Charles De Ketelaere","Romain Del Castillo","Ousmane Dembélé","Moussa Diaby","Jeremy Doku","Alfie Doughty","Artem Dovbyk","Bruno Fernandes","Phil Foden","Niclas Füllkrug","Olivier Giroud","Angel Gomes","Vincenzo Grifo","Bruno Guimarães","Harry Kane","Toni Kroos","Robert Lewandowski","Henrikh Mkhitaryan","Darwin Núñez","Christian Pulisic","David Raum","Marco Reus","Declan Rice","Luis Alberto","Jordan Ayew","Bradley Barcola","Raoul Bellanova","Vladimír Coufal","Matheus Cunha","Jeremie Frimpong","Chris Führich","Conor Gallagher","Leon Goretzka","Miguel Gutiérrez","Kai Havertz","Jonas Hofmann","Junya Ito","Ademola Lookman","Kylian Mbappé","Weston McKennie","Jacob Murphy","Loïs Openda","Andreas Pereira","Matteo Politano","Pedro Porro","Diego Rico","Pablo Sarabia","Marcus Thuram","Viktor Tsyhankov","Federico Valverde","James Ward-Prowse","Mitchell Weiser","Jonas Wind","Amine Adli","Felipe Anderson","Jesús Areso","Dilane Bakwa","Jude Bellingham"],"freq":[14,13,13,11,11,11,11,11,11,11,10,10,10,10,10,10,10,10,10,10,10,10,10,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,6,6,6,6,6],"fontFamily":"Segoe UI","fontWeight":"bold","color":["#4DAF4A","#E41A1C","#377EB8","#E41A1C","#E41A1C","#377EB8","#E41A1C","#E41A1C","#4DAF4A","#E41A1C","#4DAF4A","#377EB8","#377EB8","#377EB8","#377EB8","#377EB8","#377EB8","#377EB8","#4DAF4A","#E41A1C","#377EB8","#E41A1C","#377EB8","#377EB8","#E41A1C","#E41A1C","#FF7F00","#377EB8","#4DAF4A","#E41A1C","#FF7F00","#377EB8","#E41A1C","#377EB8","#4DAF4A","#377EB8","#377EB8","#377EB8","#377EB8","#984EA3","#E41A1C","#4DAF4A","#FF7F00","#984EA3","#984EA3","#377EB8","#377EB8","#377EB8","#4DAF4A","#377EB8","#377EB8","#E41A1C","#FF7F00","#984EA3","#E41A1C","#377EB8","#E41A1C","#4DAF4A","#4DAF4A","#FF7F00","#377EB8","#FF7F00","#E41A1C","#E41A1C","#377EB8","#FF7F00","#377EB8","#984EA3","#FF7F00","#377EB8","#377EB8","#E41A1C","#E41A1C","#377EB8","#E41A1C","#4DAF4A","#377EB8","#E41A1C","#984EA3","#FF7F00","#984EA3","#FF7F00","#377EB8","#E41A1C","#377EB8","#FF7F00","#377EB8","#4DAF4A","#377EB8","#FF7F00","#4DAF4A","#4DAF4A","#377EB8","#E41A1C","#E41A1C","#E41A1C","#FF7F00","#4DAF4A","#984EA3","#4DAF4A"],"minSize":0,"weightFactor":1.928571428571429,"backgroundColor":"white","gridSize":0,"minRotation":-0.7853981633974483,"maxRotation":0.7853981633974483,"shuffle":true,"rotateRatio":0.4,"shape":"pentagon","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+</div>
+</div>
+<p>Examining the top 100 assist providers in the top 5 leagues, special attention goes to players from the English Premier League and the German Bundesliga, marked in blue and red, respectively. No player significantly outperformed in terms of total assists, but nearly 40% of the top assist providers played for English clubs last season.</p>
+</section>
+<section id="project-summary." class="level1">
+<h1>10. Project Summary.</h1>
+<div style="border: 1px solid #ccc; padding: 10px;">
+<iframe src="lastplot.html" width="100%" height="600px" frameborder="0">
+</iframe>
+</div>
+<p>Analyzing football statistics makes it difficult to draw definitive conclusions. Many aspects of football are subjective, meaning that for some, a club or league is the best due to personal preference. As demonstrated in previous charts, many players cannot be directly compared, especially based on position. While statistics provide valuable insights, many elements of football cannot be quantified. The final chart showcases the scale of the database used for this project.</p>
+</section>
+<section id="sources" class="level1">
+<h1>Sources:</h1>
+<p><a href="https://www.kaggle.com/datasets/orkunaktas/all-football-players-stats-in-top-5-leagues-2324?resource=download" class="uri">https://www.kaggle.com/datasets/orkunaktas/all-football-players-stats-in-top-5-leagues-2324?resource=download</a></p>
+<p><a href="https://r-graph-gallery.com" class="uri">https://r-graph-gallery.com</a></p>
+<p><a href="https://www.whoscored.com/Statistics" class="uri">https://www.whoscored.com/Statistics</a></p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
