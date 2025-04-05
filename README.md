@@ -1,4 +1,4 @@
-# ⚽ Football Data Analysis 2023/2024
+# ⚽ Football Data Analysis 2023/2024 from top 5 best european leagues
 
 An exploratory project on player statistics from the 2023/2024 football season using **R** and **Quarto**.
 
