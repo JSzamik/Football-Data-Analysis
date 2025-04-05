@@ -5,3 +5,5 @@
 *.html linguist-generated
 _site/** linguist-generated
 site_libs/** linguist-generated
+*.js linguist-generated
+
