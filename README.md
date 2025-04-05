@@ -21,4 +21,5 @@ ggplot2, dplyr, tidyr, leaflet, plotly, etc.
 Open in RStudio
 
 Render with:
-quarto::quarto_render("Project.qmd")
+quarto::quarto_render("your_report.qmd")
+
